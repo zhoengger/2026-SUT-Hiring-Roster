@@ -1,0 +1,774 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Team Roster</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f7f5;color:#1a1a1a;padding:1.25rem;min-height:100vh}
+:root{
+  --bg:#ffffff;--bg2:#f2f2ef;--bg3:#e8e8e4;
+  --tx:#1a1a1a;--tx2:#6b6b67;--tx3:#9b9b97;
+  --bd:rgba(0,0,0,.12);--bd2:rgba(0,0,0,.22);
+  --r:8px;--r2:12px;
+  --green-bg:#eaf3de;--green-tx:#3b6d11;--green-bd:#c0dd97;
+  --red-bg:#fcebeb;  --red-tx:#791f1f;  --red-bd:#f09595;
+  --amber-bg:#faeeda;--amber-tx:#854f0b;--amber-bd:#fac775;
+  --blue-bg:#e6f1fb; --blue-tx:#0c447c; --blue-bd:#b5d4f4;
+  --teal-bg:#e1f5ee; --teal-tx:#0f6e56; --teal-bd:#9fe1cb;
+  --purple-bg:#eeedfe;--purple-tx:#3c3489;--purple-bd:#afa9ec;
+  --gray-bg:#f1efe8; --gray-tx:#5f5e5a; --gray-bd:#d3d1c7;
+}
+@media(prefers-color-scheme:dark){
+  body{background:#1a1a18;color:#e0e0dc}
+  :root{
+    --bg:#242422;--bg2:#2e2e2b;--bg3:#383835;
+    --tx:#e0e0dc;--tx2:#a0a09a;--tx3:#686864;
+    --bd:rgba(255,255,255,.12);--bd2:rgba(255,255,255,.22);
+    --green-bg:#1a2e0a;--green-tx:#97c459;--green-bd:#27500a;
+    --red-bg:#2e0a0a;  --red-tx:#f09595;  --red-bd:#791f1f;
+    --amber-bg:#2e1e05;--amber-tx:#fac775;--amber-bd:#633806;
+    --blue-bg:#051e38; --blue-tx:#85b7eb; --blue-bd:#0c447c;
+    --teal-bg:#04342c; --teal-tx:#5dcaa5; --teal-bd:#085041;
+    --purple-bg:#26215c;--purple-tx:#afa9ec;--purple-bd:#3c3489;
+    --gray-bg:#2c2c2a; --gray-tx:#b4b2a9; --gray-bd:#5f5e5a;
+  }
+}
+
+.card{display:flex;justify-content:space-between;align-items:center;padding:8px 11px;border-radius:var(--r);margin-bottom:4px;gap:8px;cursor:pointer;border:0.5px solid var(--bd);background:var(--bg);transition:opacity .12s}
+.card:hover{opacity:.82}
+.card.stripe{background:var(--bg2)}
+.card.open{border-style:dashed;border-color:var(--bd2);background:var(--bg2)}
+.card.hired{background:var(--green-bg);border-color:var(--green-bd)}
+.card.gone{opacity:.5}
+.card.cont{background:var(--purple-bg);border:1.5px dashed var(--purple-bd)}
+.bdg{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:2px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0}
+.shift-banner{font-size:13px;font-weight:600;color:var(--tx);padding:10px 0 4px;border-bottom:2px solid var(--bd2);margin-bottom:8px;margin-top:4px;display:flex;align-items:baseline;gap:8px}
+.shift-banner .sub{font-size:11px;font-weight:400;color:var(--tx3)}
+.sec{font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;padding:10px 0 4px;border-bottom:0.5px solid var(--bd);margin-bottom:4px}
+.act{display:block;width:100%;text-align:left;padding:9px 12px;border:0.5px solid var(--bd);border-radius:var(--r);background:var(--bg);cursor:pointer;font-size:13px;color:var(--tx);margin-bottom:5px;font-family:inherit;transition:background .1s}
+.act:hover{background:var(--bg2)}
+.act.green{border-color:var(--green-bd);color:var(--green-tx);background:var(--green-bg)}
+.act.red{border-color:var(--red-bd);color:var(--red-tx);background:var(--red-bg)}
+.act.blue{border-color:var(--blue-bd);color:var(--blue-tx);background:var(--blue-bg)}
+.act.muted{color:var(--tx3);font-size:12px}
+.tin{width:100%;padding:7px 10px;border:0.5px solid var(--bd2);border-radius:var(--r);font-size:13px;background:var(--bg);color:var(--tx);margin-bottom:7px;font-family:inherit;outline:none}
+.tin:focus{border-color:#378add}
+.tin.mono{font-family:monospace;font-size:12px}
+.spill{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.spill-opt{padding:4px 10px;border-radius:5px;font-size:12px;font-weight:500;cursor:pointer;border:1.5px solid transparent;opacity:.7;transition:opacity .1s}
+.spill-opt:hover,.spill-opt.sel{opacity:1;border-color:currentColor}
+.tb-btn{padding:5px 12px;border:0.5px solid var(--bd2);border-radius:var(--r);background:var(--bg);cursor:pointer;font-size:12px;color:var(--tx2);font-family:inherit;transition:background .1s}
+.tb-btn:hover{background:var(--bg2)}
+.tb-btn.pri{border-color:var(--blue-bd);color:var(--blue-tx);background:var(--blue-bg)}
+.met{background:var(--bg2);border-radius:var(--r);padding:12px;text-align:center;flex:1;min-width:0}
+.met .n{font-size:22px;font-weight:600;color:var(--tx)}
+.met .l{font-size:11px;color:var(--tx3);margin-top:2px}
+.hist{font-size:11px;color:var(--tx2);padding:3px 0;border-bottom:0.5px solid var(--bd)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--bg);border:0.5px solid var(--bd2);border-radius:var(--r);padding:9px 16px;font-size:13px;color:var(--tx);z-index:500;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.toast.show{opacity:1}
+#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:100}
+#mdl{width:320px;max-width:94%;background:var(--bg);border:0.5px solid var(--bd2);border-radius:var(--r2);padding:1.25rem;max-height:88vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+
+/* Setup screen */
+.setup{max-width:480px;margin:60px auto 0;background:var(--bg);border:0.5px solid var(--bd2);border-radius:var(--r2);padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+.setup h1{font-size:18px;font-weight:600;margin-bottom:6px}
+.setup p{font-size:13px;color:var(--tx2);margin-bottom:16px;line-height:1.6}
+.setup ol{font-size:13px;color:var(--tx2);padding-left:1.2rem;margin-bottom:20px;line-height:2}
+.setup ol li b{color:var(--tx)}
+.step-label{font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.err{font-size:12px;color:var(--red-tx);background:var(--red-bg);border:0.5px solid var(--red-bd);border-radius:var(--r);padding:8px 10px;margin-bottom:8px}
+.info-box{font-size:12px;color:var(--blue-tx);background:var(--blue-bg);border:0.5px solid var(--blue-bd);border-radius:var(--r);padding:8px 10px;margin-bottom:8px}
+
+/* Sync status bar */
+#sync-bar{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--tx3);padding:3px 0 10px}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--gray-bd);flex-shrink:0}
+.sync-dot.ok{background:#3b6d11}
+.sync-dot.saving{background:#854f0b;animation:pulse .8s infinite}
+.sync-dot.err{background:#791f1f}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+</head>
+<body>
+
+<div id="root">
+    <div style="max-width:860px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+        <div>
+          <div style="font-size:15px;font-weight:600;color:var(--tx)">Production team roster</div>
+          <div style="font-size:12px;color:var(--tx3)">Click any card to edit</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="tb-btn pri" onclick="downloadShared()" title="Download a pre-connected version to share with your team">Share file</button>
+          <button class="tb-btn" onclick="addToShift(1)">+ Add person</button>
+          <button class="tb-btn" onclick="reconnect()">Settings</button>
+          <button class="tb-btn" style="color:var(--red-tx)" onclick="resetAll()">Reset</button>
+        </div>
+      </div>
+
+      <div id="sync-bar">
+        <div class="sync-dot " id="sync-dot"></div>
+        <span id="sync-txt">Connected</span>
+        <span style="color:var(--bd2)">·</span>
+        <span style="color:var(--blue-tx);cursor:pointer;text-decoration:underline" onclick="manualRefresh()">Refresh</span>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <div class="met"><div class="n">7</div><div class="l">Open positions</div></div>
+        <div class="met"><div class="n" style="color:var(--green-tx)">0</div><div class="l">Hires completed</div></div>
+        <div class="met"><div class="n" style="color:var(--red-tx)">1</div><div class="l">At risk</div></div>
+        <div class="met"><div class="n" style="color:var(--gray-tx)">0</div><div class="l">No longer active</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div><div class="shift-banner">1st shift</div><div class="sec">Active</div><div class="card" onclick="openCard('hp')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Hina Patel</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Supervisor</div>
+    </div>
+    <span class="bdg" style="background:var(--green-bg);color:var(--green-tx);">Staying</span>
+  </div><div class="card stripe" onclick="openCard('cc')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Chris Chiavini</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Maintenance Tech</div>
+    </div>
+    <span class="bdg" style="background:var(--green-bg);color:var(--green-tx);">Staying</span>
+  </div><div class="card" onclick="openCard('np')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Neha Patel</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler II</div>
+    </div>
+    <span class="bdg" style="background:var(--green-bg);color:var(--green-tx);">Staying</span>
+  </div><div class="card stripe" onclick="openCard('eh')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Evelyn Humphrey</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Quality Inspector · Promoted from Assembler II</div>
+    </div>
+    <span class="bdg" style="background:var(--amber-bg);color:var(--amber-tx);">Role change</span>
+  </div><div class="card" onclick="openCard('jl')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Jim Lambert</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler II</div>
+    </div>
+    <span class="bdg" style="background:var(--green-bg);color:var(--green-tx);">Staying</span>
+  </div><div class="card stripe" onclick="openCard('kt')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Keylee Traver</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Attendance concerns</div>
+    </div>
+    <span class="bdg" style="background:var(--red-bg);color:var(--red-tx);">At risk</span>
+  </div><div class="card" onclick="openCard('mk')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Melissa Knight</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I</div>
+    </div>
+    <span class="bdg" style="background:var(--green-bg);color:var(--green-tx);">Staying</span>
+  </div><div class="card stripe" onclick="openCard('gl')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Gavin Larson</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I</div>
+    </div>
+    <span class="bdg" style="background:var(--green-bg);color:var(--green-tx);">Staying</span>
+  </div><div class="card" onclick="openCard('ea')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Ethan Anderson</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Inventory Assistant</div>
+    </div>
+    <span class="bdg" style="background:var(--green-bg);color:var(--green-tx);">Staying</span>
+  </div><div class="sec">In transition</div><div class="card stripe" onclick="openCard('jt')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Jeremiah Traver</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">R&amp;D Tech · Moving to another dept.</div>
+    </div>
+    <span class="bdg" style="background:var(--blue-bg);color:var(--blue-tx);">Dept. transfer</span>
+  </div><div class="card" onclick="openCard('sc')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Stephanie Cortez</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Quality Inspector · Moving to 2nd shift</div>
+    </div>
+    <span class="bdg" style="background:var(--blue-bg);color:var(--blue-tx);">→ 2nd shift</span>
+  </div><div class="card stripe" onclick="openCard('bd')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Bonnie Derixon</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Moving to 2nd shift</div>
+    </div>
+    <span class="bdg" style="background:var(--blue-bg);color:var(--blue-tx);">→ 2nd shift</span>
+  </div><div class="card" onclick="openCard('mw')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Meg Widger</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Departing company</div>
+    </div>
+    <span class="bdg" style="background:var(--red-bg);color:var(--red-tx);">Leaving</span>
+  </div><div class="sec">Open positions</div><div class="card stripe open" onclick="openCard('o1')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:400;color:var(--tx2);font-style:italic;">Open position</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Backfill for Jeremiah</div>
+    </div>
+    <span class="bdg" style="background:var(--amber-bg);color:var(--amber-tx);">Open – hiring</span>
+  </div><div class="card open" onclick="openCard('o2')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:400;color:var(--tx2);font-style:italic;">Open position</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Backfill for Evelyn</div>
+    </div>
+    <span class="bdg" style="background:var(--amber-bg);color:var(--amber-tx);">Open – hiring</span>
+  </div><div class="card stripe open" onclick="openCard('o3')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:400;color:var(--tx2);font-style:italic;">Open position</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Backfill for Bonnie</div>
+    </div>
+    <span class="bdg" style="background:var(--amber-bg);color:var(--amber-tx);">Open – hiring</span>
+  </div><div class="card open" onclick="openCard('o4')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:400;color:var(--tx2);font-style:italic;">Open position</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Backfill for Meg</div>
+    </div>
+    <span class="bdg" style="background:var(--amber-bg);color:var(--amber-tx);">Open – hiring</span>
+  </div><div class="card stripe open" onclick="openCard('o5')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:400;color:var(--tx2);font-style:italic;">Open position</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · New position</div>
+    </div>
+    <span class="bdg" style="background:var(--amber-bg);color:var(--amber-tx);">Open – hiring</span>
+  </div><div class="sec">Contingency</div><div class="card cont" onclick="openCard('c1')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:400;color:var(--tx2);font-style:italic;">Open position</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Activate only if Keylee leaves</div>
+    </div>
+    <span class="bdg" style="background:var(--purple-bg);color:var(--purple-tx);">Contingency</span>
+  </div><div style="margin-top:8px"><button class="act muted" style="font-size:11px;padding:6px 10px" onclick="addToShift(1)">+ Add to 1st shift</button></div></div>
+        <div><div class="shift-banner">2nd shift<span class="sub">new</span></div><div class="sec">Active</div><div class="card" onclick="openCard('s2')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Stephanie Cortez</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Quality Inspector · Transferring from 1st shift</div>
+    </div>
+    <span class="bdg" style="background:var(--teal-bg);color:var(--teal-tx);">From 1st shift</span>
+  </div><div class="card stripe" onclick="openCard('b2')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:500;color:var(--tx);font-style:normal;">Bonnie Derixon</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · Transferring from 1st shift</div>
+    </div>
+    <span class="bdg" style="background:var(--teal-bg);color:var(--teal-tx);">From 1st shift</span>
+  </div><div class="sec">Open positions</div><div class="card open" onclick="openCard('o6')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:400;color:var(--tx2);font-style:italic;">Open position</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Supervisor · New hire needed</div>
+    </div>
+    <span class="bdg" style="background:var(--amber-bg);color:var(--amber-tx);">Open – hiring</span>
+  </div><div class="card stripe open" onclick="openCard('o7')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:400;color:var(--tx2);font-style:italic;">Open position</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">Assembler I · New hire needed</div>
+    </div>
+    <span class="bdg" style="background:var(--amber-bg);color:var(--amber-tx);">Open – hiring</span>
+  </div><div style="margin-top:8px"><button class="act muted" style="font-size:11px;padding:6px 10px" onclick="addToShift(2)">+ Add to 2nd shift</button></div></div>
+      </div>
+
+      
+
+      <div style="padding-top:12px;border-top:0.5px solid var(--bd)">
+        <div style="font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Action log</div>
+        <div style="font-size:12px;color:var(--tx3)">No actions yet</div>
+      </div>
+    </div></div>
+<div id="ov"><div style="display:flex;justify-content:center;padding:60px 16px 16px"><div id="mdl"></div></div></div>
+<div class="toast" id="toast">Roster created and connected</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// CONFIGURATION
+// When you click "Download shared version", these get pre-filled automatically.
+// Share that downloaded file and anyone who opens it connects to the same roster.
+const BAKED_KEY = '$2a$10$Ve8vXUugsXKbUS.4c.GVUOTK9RkDN94.F434GBisbisw2ZGB5SB4S';
+const BAKED_BIN = '69df9bd4aaba88219700fad5';
+// ─────────────────────────────────────────────────────────────────────────────
+
+const JBIN = 'https://api.jsonbin.io/v3';
+let CFG = {key:'', binId:''};
+let state = null;
+let saveTimer = null;
+let syncStatus = 'idle'; // idle | saving | saved | error
+let lastSynced = null;
+let pollInterval = null;
+let _id = 500;
+
+function gid(){ return 'p'+(++_id)+Math.random().toString(36).slice(2,5) }
+function clone(x){ return JSON.parse(JSON.stringify(x)) }
+
+// ── Statuses ───────────────────────────────────────────────────────────────
+const STATUSES=[
+  {s:'Staying',        lb:'Staying',        bg:'var(--green-bg)',  tx:'var(--green-tx)',  g:'active'},
+  {s:'At risk',        lb:'At risk',        bg:'var(--red-bg)',    tx:'var(--red-tx)',    g:'active'},
+  {s:'Role change',    lb:'Role change',    bg:'var(--amber-bg)',  tx:'var(--amber-tx)',  g:'active'},
+  {s:'→ 2nd shift',   lb:'→ 2nd shift',   bg:'var(--blue-bg)',   tx:'var(--blue-tx)',   g:'transition'},
+  {s:'Dept. transfer', lb:'Dept. transfer', bg:'var(--blue-bg)',   tx:'var(--blue-tx)',   g:'transition'},
+  {s:'Leaving',        lb:'Leaving',        bg:'var(--red-bg)',    tx:'var(--red-tx)',    g:'transition'},
+  {s:'From 1st shift', lb:'From 1st shift', bg:'var(--teal-bg)',   tx:'var(--teal-tx)',   g:'2nd'},
+  {s:'On 2nd shift',   lb:'On 2nd shift',   bg:'var(--teal-bg)',   tx:'var(--teal-tx)',   g:'2nd'},
+  {s:'Open – hiring',  lb:'Open – hiring',  bg:'var(--amber-bg)',  tx:'var(--amber-tx)',  g:'open'},
+  {s:'Hired',          lb:'Hired',          bg:'var(--green-bg)',  tx:'var(--green-tx)',  g:'open'},
+  {s:'Contingency',    lb:'Contingency',    bg:'var(--purple-bg)', tx:'var(--purple-tx)', g:'contingency'},
+  {s:'Left',           lb:'Left',           bg:'var(--gray-bg)',   tx:'var(--gray-tx)',   g:'done'},
+  {s:'Transferred out',lb:'Transferred out',bg:'var(--gray-bg)',   tx:'var(--gray-tx)',   g:'done'},
+];
+const sm = s => STATUSES.find(x=>x.s===s)||{s,lb:s,bg:'var(--bg2)',tx:'var(--tx2)',g:'active'};
+
+const INIT_PEOPLE = [
+  {id:'hp',shift:1,n:'Hina Patel',       r:'Supervisor',          s:'Staying',        notes:''},
+  {id:'cc',shift:1,n:'Chris Chiavini',   r:'Maintenance Tech',    s:'Staying',        notes:''},
+  {id:'np',shift:1,n:'Neha Patel',       r:'Assembler II',        s:'Staying',        notes:''},
+  {id:'eh',shift:1,n:'Evelyn Humphrey',  r:'Quality Inspector',   s:'Role change',    notes:'Promoted from Assembler II'},
+  {id:'jl',shift:1,n:'Jim Lambert',      r:'Assembler II',        s:'Staying',        notes:''},
+  {id:'kt',shift:1,n:'Keylee Traver',    r:'Assembler I',         s:'At risk',        notes:'Attendance concerns'},
+  {id:'mk',shift:1,n:'Melissa Knight',   r:'Assembler I',         s:'Staying',        notes:''},
+  {id:'gl',shift:1,n:'Gavin Larson',     r:'Assembler I',         s:'Staying',        notes:''},
+  {id:'ea',shift:1,n:'Ethan Anderson',   r:'Inventory Assistant', s:'Staying',        notes:''},
+  {id:'jt',shift:1,n:'Jeremiah Traver',  r:'R&D Tech',            s:'Dept. transfer', notes:'Moving to another dept.'},
+  {id:'sc',shift:1,n:'Stephanie Cortez', r:'Quality Inspector',   s:'→ 2nd shift',   notes:'Moving to 2nd shift'},
+  {id:'bd',shift:1,n:'Bonnie Derixon',   r:'Assembler I',         s:'→ 2nd shift',   notes:'Moving to 2nd shift'},
+  {id:'mw',shift:1,n:'Meg Widger',       r:'Assembler I',         s:'Leaving',        notes:'Departing company'},
+  {id:'o1',shift:1,n:'Open position',    r:'Assembler I',         s:'Open – hiring',  notes:'Backfill for Jeremiah'},
+  {id:'o2',shift:1,n:'Open position',    r:'Assembler I',         s:'Open – hiring',  notes:'Backfill for Evelyn'},
+  {id:'o3',shift:1,n:'Open position',    r:'Assembler I',         s:'Open – hiring',  notes:'Backfill for Bonnie'},
+  {id:'o4',shift:1,n:'Open position',    r:'Assembler I',         s:'Open – hiring',  notes:'Backfill for Meg'},
+  {id:'o5',shift:1,n:'Open position',    r:'Assembler I',         s:'Open – hiring',  notes:'New position'},
+  {id:'c1',shift:1,n:'Open position',    r:'Assembler I',         s:'Contingency',    notes:'Activate only if Keylee leaves'},
+  {id:'s2',shift:2,n:'Stephanie Cortez', r:'Quality Inspector',   s:'From 1st shift', notes:'Transferring from 1st shift'},
+  {id:'b2',shift:2,n:'Bonnie Derixon',   r:'Assembler I',         s:'From 1st shift', notes:'Transferring from 1st shift'},
+  {id:'o6',shift:2,n:'Open position',    r:'Supervisor',          s:'Open – hiring',  notes:'New hire needed'},
+  {id:'o7',shift:2,n:'Open position',    r:'Assembler I',         s:'Open – hiring',  notes:'New hire needed'},
+];
+
+// ── JSONBin API ────────────────────────────────────────────────────────────
+async function binCreate(data){
+  const r=await fetch(`${JBIN}/b`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','X-Master-Key':CFG.key,'X-Bin-Name':'production-roster'},
+    body:JSON.stringify(data)
+  });
+  if(!r.ok){const t=await r.text();throw new Error('Create failed ('+r.status+'): '+t);}
+  const j=await r.json();
+  return j.metadata.id;
+}
+async function binRead(){
+  const r=await fetch(`${JBIN}/b/${CFG.binId}/latest`,{
+    headers:{'X-Master-Key':CFG.key}
+  });
+  if(!r.ok) throw new Error('Read failed: '+r.status);
+  const j=await r.json();
+  return j.record;
+}
+async function binWrite(data){
+  const r=await fetch(`${JBIN}/b/${CFG.binId}`,{
+    method:'PUT',
+    headers:{'Content-Type':'application/json','X-Master-Key':CFG.key},
+    body:JSON.stringify(data)
+  });
+  if(!r.ok) throw new Error('Write failed: '+r.status);
+}
+
+// ── Config persistence ─────────────────────────────────────────────────────
+function loadCfg(){
+  if(BAKED_KEY && BAKED_BIN){ CFG={key:BAKED_KEY,binId:BAKED_BIN}; return true; }
+  try{ const s=localStorage.getItem('roster_cfg_v4'); if(s){ CFG=JSON.parse(s); return !!(CFG.key&&CFG.binId); } }
+  catch(e){}
+  return false;
+}
+function saveCfg(){ localStorage.setItem('roster_cfg_v4',JSON.stringify(CFG)); }
+
+// ── Auto-save ──────────────────────────────────────────────────────────────
+function scheduleSave(){
+  setSyncStatus('saving');
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{
+    try{
+      await binWrite(state);
+      setSyncStatus('saved');
+      lastSynced=Date.now();
+    }catch(e){
+      setSyncStatus('error');
+      console.error('Save failed:',e);
+      toast('Could not save — check your connection');
+    }
+  },1500);
+}
+
+function setSyncStatus(s){
+  syncStatus=s;
+  const dot=document.getElementById('sync-dot');
+  const txt=document.getElementById('sync-txt');
+  if(!dot||!txt)return;
+  dot.className='sync-dot '+(s==='saved'?'ok':s==='saving'?'saving':s==='error'?'err':'');
+  const msgs={idle:'Connected',saving:'Saving...',saved:'Saved',error:'Save failed'};
+  const ago=lastSynced?Math.round((Date.now()-lastSynced)/1000)+'s ago':'';
+  txt.textContent=msgs[s]+(s==='saved'&&ago?' · '+ago:'');
+}
+
+// ── Polling ────────────────────────────────────────────────────────────────
+function startPolling(){
+  if(pollInterval)clearInterval(pollInterval);
+  pollInterval=setInterval(async()=>{
+    if(saveTimer)return; // skip if we're about to save
+    try{
+      const fresh=await binRead();
+      const freshStr=JSON.stringify(fresh);
+      if(freshStr!==JSON.stringify(state)){
+        state=fresh;
+        render();
+        toast('Roster updated by someone else');
+      }
+      lastSynced=Date.now();
+      setSyncStatus('saved');
+    }catch(e){ setSyncStatus('error'); }
+  },60000);
+}
+
+// document visibility: refresh when tab becomes active
+document.addEventListener('visibilitychange',async()=>{
+  if(document.visibilityState==='visible'&&CFG.binId){
+    try{
+      const fresh=await binRead();
+      if(JSON.stringify(fresh)!==JSON.stringify(state)){
+        state=fresh; render(); toast('Roster refreshed');
+      }
+      lastSynced=Date.now(); setSyncStatus('saved');
+    }catch(e){}
+  }
+});
+
+// ── Toast ──────────────────────────────────────────────────────────────────
+function toast(msg,ms=2600){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),ms);
+}
+
+// ── Setup screen ───────────────────────────────────────────────────────────
+function showSetup(errMsg=''){
+  document.getElementById('root').innerHTML=`
+    <div class="setup">
+      <h1>Connect to cloud storage</h1>
+      <p>Your roster will be saved online so anyone with this file sees live updates. You only need to do this once.</p>
+      <ol>
+        <li>Go to <b>jsonbin.io</b> and create a free account</li>
+        <li>Click your profile icon → <b>API Keys</b></li>
+        <li>Click <b>Create Master Key</b>, name it anything</li>
+        <li>Copy the key and paste it below</li>
+      </ol>
+      ${errMsg?`<div class="err">${errMsg}</div>`:''}
+      <div class="step-label">Your JSONBin master key</div>
+      <input class="tin mono" id="setup-key" placeholder="$2a$10$..." autocomplete="off" value="${CFG.key||''}">
+      <div class="step-label" style="margin-top:4px">Bin ID <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--tx3)">(leave blank to create a new roster)</span></div>
+      <input class="tin mono" id="setup-bin" placeholder="Optional — paste if joining an existing roster" autocomplete="off" value="${CFG.binId||''}">
+      <button class="act blue" onclick="doSetup()" id="setup-btn">Connect</button>
+    </div>`;
+  setTimeout(()=>{ const i=document.getElementById('setup-key'); if(i)i.focus(); },50);
+}
+
+async function doSetup(){
+  const key=((document.getElementById('setup-key')||{}).value||'').trim();
+  const binId=((document.getElementById('setup-bin')||{}).value||'').trim();
+  if(!key){ showSetup('Please enter your API key.'); return; }
+  const btn=document.getElementById('setup-btn');
+  if(btn){ btn.textContent='Connecting...'; btn.disabled=true; }
+  CFG={key,binId};
+  try{
+    if(binId){
+      // Joining existing — verify we can read it
+      const data=await binRead();
+      if(!data.people) throw new Error('This bin does not look like a roster.');
+      state=data;
+      saveCfg(); lastSynced=Date.now();
+      render(); startPolling();
+      toast('Connected to existing roster');
+    } else {
+      // New roster — create a bin
+      const initialState={people:clone(INIT_PEOPLE),history:[]};
+      const newId=await binCreate(initialState);
+      CFG.binId=newId;
+      state=initialState;
+      saveCfg(); lastSynced=Date.now();
+      render(); startPolling();
+      toast('Roster created and connected');
+    }
+  }catch(e){
+    showSetup('Could not connect: '+(e.message||'check your API key and try again'));
+  }
+}
+
+// ── Download shared version ────────────────────────────────────────────────
+function downloadShared(){
+  let src=document.documentElement.outerHTML;
+  src=src.replace("const BAKED_KEY = ''",`const BAKED_KEY = '${CFG.key}'`);
+  src=src.replace("const BAKED_BIN = ''",`const BAKED_BIN = '${CFG.binId}'`);
+  const blob=new Blob([src],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='roster_shared.html';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  toast('Downloaded — share roster_shared.html with your team');
+}
+
+// ── Render helpers ─────────────────────────────────────────────────────────
+function bdg(s){
+  const m=sm(s);
+  return `<span class="bdg" style="background:${m.bg};color:${m.tx};${m.g==='done'?'text-decoration:line-through':''}">${m.lb}</span>`;
+}
+function mkCard(p,i){
+  const m=sm(p.s); const isOpen=p.n==='Open position'; const isDone=m.g==='done'; const isCont=p.s==='Contingency';
+  let cls='card';
+  if(i%2===1)cls+=' stripe';
+  if(isOpen&&!isCont)cls+=' open';
+  if(isCont)cls+=' cont';
+  if(p.s==='Hired')cls+=' hired';
+  if(isDone)cls+=' gone';
+  return `<div class="${cls}" onclick="openCard('${p.id}')">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:${isOpen?'400':'500'};color:${isDone?'var(--tx3)':isOpen?'var(--tx2)':'var(--tx)'};font-style:${isOpen?'italic':'normal'};${isDone?'text-decoration:line-through':''}">${p.n}</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:1px">${p.r}${p.notes?' · '+p.notes:''}</div>
+    </div>
+    ${bdg(p.s)}
+  </div>`;
+}
+function sec(l){return`<div class="sec">${l}</div>`}
+
+function shiftBlock(p,shift,label,sub){
+  const sp=p.filter(x=>x.shift===shift);
+  let h=`<div class="shift-banner">${label}${sub?`<span class="sub">${sub}</span>`:''}</div>`;
+  let i=0;
+  const active=sp.filter(x=>['Staying','At risk','Role change'].includes(x.s));
+  if(active.length){h+=sec('Active');active.forEach(x=>{h+=mkCard(x,i++);});}
+  const trans=sp.filter(x=>['→ 2nd shift','Dept. transfer','Leaving'].includes(x.s));
+  if(trans.length){h+=sec('In transition');trans.forEach(x=>{h+=mkCard(x,i++);});}
+  const s2a=sp.filter(x=>['From 1st shift','On 2nd shift'].includes(x.s));
+  if(s2a.length){h+=sec('Active');s2a.forEach(x=>{h+=mkCard(x,i++);});}
+  const open=sp.filter(x=>['Open – hiring','Hired'].includes(x.s));
+  if(open.length){h+=sec('Open positions');open.forEach(x=>{h+=mkCard(x,i++);});}
+  const cont=sp.filter(x=>x.s==='Contingency');
+  if(cont.length){h+=sec('Contingency');cont.forEach(x=>{h+=mkCard(x,i++);});}
+  h+=`<div style="margin-top:8px"><button class="act muted" style="font-size:11px;padding:6px 10px" onclick="addToShift(${shift})">+ Add to ${label.toLowerCase()}</button></div>`;
+  return h;
+}
+function doneBlock(p){
+  const done=p.filter(x=>sm(x.s).g==='done');
+  if(!done.length)return'';
+  let h='';
+  done.filter(x=>x.s==='Left').forEach((x,i)=>{ if(!i)h+=sec('Left company'); h+=mkCard(x,i); });
+  done.filter(x=>x.s==='Transferred out').forEach((x,i)=>{ if(!i)h+=sec('Transferred out'); h+=mkCard(x,i); });
+  return h;
+}
+
+function render(){
+  const p=state.people;
+  const open=p.filter(x=>x.s==='Open – hiring').length;
+  const hired=p.filter(x=>x.s==='Hired').length;
+  const atRisk=p.filter(x=>x.s==='At risk').length;
+  const gone=p.filter(x=>sm(x.s).g==='done').length;
+  const doneHtml=doneBlock(p);
+  const hist=state.history.length
+    ?state.history.map(h=>`<div class="hist"><span style="color:var(--tx3)">${h.t}</span>  ${h.m}</div>`).join('')
+    :`<div style="font-size:12px;color:var(--tx3)">No actions yet</div>`;
+
+  document.getElementById('root').innerHTML=`
+    <div style="max-width:860px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+        <div>
+          <div style="font-size:15px;font-weight:600;color:var(--tx)">Production team roster</div>
+          <div style="font-size:12px;color:var(--tx3)">Click any card to edit</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="tb-btn pri" onclick="downloadShared()" title="Download a pre-connected version to share with your team">Share file</button>
+          <button class="tb-btn" onclick="addToShift(1)">+ Add person</button>
+          <button class="tb-btn" onclick="reconnect()">Settings</button>
+          <button class="tb-btn" style="color:var(--red-tx)" onclick="resetAll()">Reset</button>
+        </div>
+      </div>
+
+      <div id="sync-bar">
+        <div class="sync-dot ok" id="sync-dot"></div>
+        <span id="sync-txt">Connected</span>
+        <span style="color:var(--bd2)">·</span>
+        <span style="color:var(--blue-tx);cursor:pointer;text-decoration:underline" onclick="manualRefresh()">Refresh</span>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+        <div class="met"><div class="n">${open}</div><div class="l">Open positions</div></div>
+        <div class="met"><div class="n" style="color:var(--green-tx)">${hired}</div><div class="l">Hires completed</div></div>
+        <div class="met"><div class="n" style="color:var(--red-tx)">${atRisk}</div><div class="l">At risk</div></div>
+        <div class="met"><div class="n" style="color:var(--gray-tx)">${gone}</div><div class="l">No longer active</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div>${shiftBlock(p,1,'1st shift','')}</div>
+        <div>${shiftBlock(p,2,'2nd shift','new')}</div>
+      </div>
+
+      ${doneHtml?`<div style="margin-bottom:16px;padding:12px 14px;border-radius:var(--r2);background:var(--gray-bg);border:0.5px solid var(--gray-bd)">
+        <div class="shift-banner" style="border-bottom-color:var(--gray-bd)">No longer active <span class="sub">movements completed</span></div>
+        ${doneHtml}
+      </div>`:''}
+
+      <div style="padding-top:12px;border-top:0.5px solid var(--bd)">
+        <div style="font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Action log</div>
+        ${hist}
+      </div>
+    </div>`;
+
+  setSyncStatus(syncStatus);
+}
+
+// ── Actions ────────────────────────────────────────────────────────────────
+function log(msg){
+  const t=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  state.history.unshift({t,m:msg});
+  if(state.history.length>16)state.history.pop();
+}
+
+async function manualRefresh(){
+  setSyncStatus('saving');
+  try{
+    const fresh=await binRead();
+    state=fresh; render(); lastSynced=Date.now(); setSyncStatus('saved');
+    toast('Roster refreshed');
+  }catch(e){ setSyncStatus('error'); toast('Could not refresh'); }
+}
+
+function reconnect(){
+  modal(`
+    <div style="margin-bottom:12px">
+      <div style="font-weight:600;font-size:14px;color:var(--tx);margin-bottom:3px">Connection settings</div>
+      <div style="font-size:12px;color:var(--tx2)">Bin ID: <span style="font-family:monospace;font-size:11px">${CFG.binId}</span></div>
+    </div>
+    <div class="info-box">Share your roster by clicking <b>Share file</b> on the main screen. Anyone who opens that file automatically connects to this same roster.</div>
+    <button class="act blue" onclick="downloadShared();closeModal()">Download shared version</button>
+    <button class="act red" onclick="disconnect()">Disconnect and re-enter credentials</button>
+    <button class="act muted" onclick="closeModal()">Cancel</button>`);
+}
+function disconnect(){
+  if(!confirm('This will disconnect from JSONBin. You will need to re-enter your credentials.'))return;
+  localStorage.removeItem('roster_cfg_v4');
+  CFG={key:'',binId:''};state=null;
+  clearInterval(pollInterval);
+  closeModal();showSetup();
+}
+
+function modal(html){document.getElementById('mdl').innerHTML=html;document.getElementById('ov').style.display='block';}
+function closeModal(){document.getElementById('ov').style.display='none';}
+document.getElementById('ov').onclick=function(e){if(e.target===this)closeModal();};
+
+function picker(cur,fn){
+  const groups=[
+    {l:'Active',           k:['Staying','At risk','Role change']},
+    {l:'In transition',    k:['→ 2nd shift','Dept. transfer','Leaving']},
+    {l:'2nd shift',        k:['From 1st shift','On 2nd shift']},
+    {l:'Open',             k:['Open – hiring','Hired','Contingency']},
+    {l:'No longer active', k:['Left','Transferred out']},
+  ];
+  return groups.map(g=>`
+    <div style="font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin:7px 0 3px">${g.l}</div>
+    <div class="spill">${g.k.map(s=>{const m=sm(s);return`<span class="spill-opt${s===cur?' sel':''}" style="background:${m.bg};color:${m.tx}" onclick="${fn}('${s.replace(/'/g,"\\'")}')">${m.lb}</span>`;}).join('')}</div>`).join('');
+}
+
+function openCard(id){
+  const p=state.people.find(x=>x.id===id);if(!p)return;
+  modal(`
+    <div style="margin-bottom:12px">
+      <div style="font-weight:600;font-size:14px;color:var(--tx);margin-bottom:2px">${p.n}</div>
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:8px">${p.r} · Shift ${p.shift}</div>${bdg(p.s)}
+    </div>
+    <div style="font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Set status</div>
+    ${picker(p.s,`(function(ns){setStatus('${id}',ns)})`)}
+    <div style="border-top:0.5px solid var(--bd);padding-top:10px;margin-top:8px">
+      <div style="font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Edit details</div>
+      <input class="tin" id="en" value="${p.n}" placeholder="Name">
+      <input class="tin" id="er" value="${p.r}" placeholder="Role">
+      <input class="tin" id="eno" value="${p.notes||''}" placeholder="Notes (optional)">
+      <div style="display:flex;gap:6px">
+        <button class="act green" style="flex:1" onclick="saveEdit('${id}')">Save</button>
+        <button class="act red" style="flex:1;font-size:12px" onclick="removePerson('${id}')">Remove</button>
+      </div>
+    </div>
+    <button class="act muted" onclick="closeModal()" style="margin-top:4px">Cancel</button>`);
+}
+
+function setStatus(id,ns){
+  const p=state.people.find(x=>x.id===id);if(!p)return;
+  const old=sm(p.s).lb; p.s=ns;
+  log(`${p.n}: ${old} → ${sm(ns).lb}`);
+  scheduleSave(); closeModal(); render();
+}
+function saveEdit(id){
+  const p=state.people.find(x=>x.id===id);if(!p)return;
+  const nn=((document.getElementById('en')||{}).value||'').trim();
+  const nr=((document.getElementById('er')||{}).value||'').trim();
+  const no=((document.getElementById('eno')||{}).value||'').trim();
+  if(nn)p.n=nn; if(nr)p.r=nr; p.notes=no;
+  log(`Updated: ${p.n}`); scheduleSave(); closeModal(); render();
+}
+function removePerson(id){
+  const p=state.people.find(x=>x.id===id);if(!p)return;
+  if(!confirm(`Remove ${p.n}? This cannot be undone.`))return;
+  state.people=state.people.filter(x=>x.id!==id);
+  log(`Removed: ${p.n}`); scheduleSave(); closeModal(); render();
+}
+
+let _newShift=1, _newStatus='Staying';
+function addToShift(shift){
+  _newShift=shift; _newStatus='Staying';
+  modal(`
+    <div style="margin-bottom:12px"><div style="font-weight:600;font-size:14px;color:var(--tx)">Add person</div></div>
+    <input class="tin" id="an" placeholder="Name (or 'Open position')" autocomplete="off">
+    <input class="tin" id="ar" placeholder="Role (e.g. Assembler I)" autocomplete="off">
+    <input class="tin" id="aw" placeholder="Notes (optional)" autocomplete="off">
+    <div style="font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Shift</div>
+    <div style="display:flex;gap:6px;margin-bottom:10px">
+      <button id="sh1" class="act" style="${shift===1?'background:var(--blue-bg);border-color:var(--blue-bd);color:var(--blue-tx)':''}" onclick="selShift(1)">1st shift</button>
+      <button id="sh2" class="act" style="${shift===2?'background:var(--blue-bg);border-color:var(--blue-bd);color:var(--blue-tx)':''}" onclick="selShift(2)">2nd shift</button>
+    </div>
+    <div style="font-size:10px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Status</div>
+    ${picker('Staying','(function(ns){_newStatus=ns;document.querySelectorAll(".spill-opt").forEach(x=>x.classList.remove("sel"));event.target.classList.add("sel")})')}
+    <button class="act green" onclick="confirmAdd()">Add to roster</button>
+    <button class="act muted" onclick="closeModal()">Cancel</button>`);
+  setTimeout(()=>{const i=document.getElementById('an');if(i)i.focus();},50);
+}
+function selShift(sh){
+  _newShift=sh;
+  [1,2].forEach(n=>{
+    const b=document.getElementById('sh'+n);if(!b)return;
+    b.style.background=n===sh?'var(--blue-bg)':'';
+    b.style.borderColor=n===sh?'var(--blue-bd)':'';
+    b.style.color=n===sh?'var(--blue-tx)':'';
+  });
+}
+function confirmAdd(){
+  const n=((document.getElementById('an')||{}).value||'').trim();
+  const r=((document.getElementById('ar')||{}).value||'').trim();
+  const w=((document.getElementById('aw')||{}).value||'').trim();
+  if(!n||!r){toast('Name and role are required');return;}
+  state.people.push({id:gid(),shift:_newShift,n,r,s:_newStatus,notes:w});
+  log(`Added: ${n} — ${r} (Shift ${_newShift})`);
+  scheduleSave(); closeModal(); render();
+}
+function resetAll(){
+  if(!confirm('Reset to initial roster state? All changes will be lost.'))return;
+  state={people:clone(INIT_PEOPLE),history:[]};
+  scheduleSave(); render(); toast('Reset to initial state');
+}
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+async function boot(){
+  if(!loadCfg()){ showSetup(); return; }
+  document.getElementById('root').innerHTML=`<div style="text-align:center;padding:80px 0;color:var(--tx3)">Loading roster...</div>`;
+  try{
+    state=await binRead();
+    lastSynced=Date.now();
+    render(); startPolling();
+  }catch(e){
+    showSetup('Could not load roster: '+(e.message||'check your API key'));
+  }
+}
+
+boot();
+</script>
+
+
+</body></html>
